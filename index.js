@@ -31,7 +31,12 @@ async function getMoonCalendarImage() {
   }
 
   console.log('🌙 달력 크롤링 중...');
-  const browser = await puppeteer.launch({ headless: true });
+  const browser = await puppeteer.launch({
+    headless: true,  // GUI 없이 실행
+    executablePath: '/usr/bin/chromium-browser', // 라즈비안 기본 Chromium 경로
+    args: ['--no-sandbox', '--disable-setuid-sandbox']
+  });
+
   const page = await browser.newPage();
 
   // 넓은 가로 화면으로 설정
@@ -144,3 +149,4 @@ schedule.scheduleJob({ hour: 18, minute: 0, tz: 'Asia/Seoul' }, async () => {
 });
 
 client.login(process.env.TOKEN);
+
