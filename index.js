@@ -6,9 +6,19 @@ const path = require('path');
 const schedule = require('node-schedule');
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, 
-  GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers] });
+  GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers,
+    GatewayIntentBits.MessageContent] });
 
 const CALENDAR_DIR = path.join(__dirname, 'moon_calendars');
+
+// 새 멤버가 들어왔을 때 실행
+client.on("guildMemberAdd", async (member) => {
+  const channel = member.guild.channels.cache.get(process.env.GREETING_CHANEL_ID);
+  if (!channel) return;
+
+  channel.send(`🎉 환영합니다, <@${member.id}> 님! 서버에 오신 걸 환영해요!`);
+});
+
 
 // 폴더 없으면 생성
 if (!fs.existsSync(CALENDAR_DIR)) {
@@ -149,4 +159,5 @@ schedule.scheduleJob({ hour: 18, minute: 0, tz: 'Asia/Seoul' }, async () => {
 });
 
 client.login(process.env.TOKEN);
+
 
