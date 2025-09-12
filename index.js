@@ -22,6 +22,11 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
 
 const CALENDAR_DIR = path.join(__dirname, 'moon_calendars');
 
+
+client.once('ready', () => {
+  console.log(`✅ 로그인 성공: ${client.user.tag}`);
+});
+
 // 새 멤버가 들어왔을 때 실행
 client.on("guildMemberAdd", async (member) => {
   const channel = member.guild.channels.cache.get(process.env.GREETING_CHANEL_ID);
@@ -418,10 +423,6 @@ if (!fs.existsSync(CALENDAR_DIR)) {
   fs.mkdirSync(CALENDAR_DIR);
 }
 
-client.once('ready', () => {
-  console.log(`✅ 로그인 성공: ${client.user.tag}`);
-});
-
 // 달력 이미지 가져오기 (있으면 로컬, 없으면 크롤링)
 async function getMoonCalendarImage() {
   const today = new Date();
@@ -552,6 +553,7 @@ schedule.scheduleJob({ hour: 20, minute: 58, tz: "Asia/Seoul" }, async () => {
 });
 
 client.login(process.env.TOKEN);
+
 
 
 
