@@ -18,8 +18,42 @@ const DATA_FILE = "./data.json";
 
 const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.MessageContent, 
   GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers] });
+/*
+// 타임 슬롯 정의
+const TIME_SLOTS = ["A", "B", "C", "D", "E"];
+const INTERVAL_MINUTES = 20;
 
+// 현재 시간이 어떤 슬롯인지 계산
+function getCurrentTimeSlot() {
+  const now = new Date();
 
+  // 한국 시간으로 변환
+  const kst = new Date(now.toLocaleString("en-US", { timeZone: "Asia/Seoul" }));
+
+  const hour = kst.getHours();
+  const minute = kst.getMinutes();
+  const totalMinutes = hour * 60 + minute;
+
+  const slotIndex = Math.floor(totalMinutes / INTERVAL_MINUTES) % TIME_SLOTS.length;
+  const slot = TIME_SLOTS[slotIndex];
+
+  const hh = String(hour).padStart(2, "0");
+  const mm = String(minute).padStart(2, "0");
+
+  return { slot, time: `${hh}:${mm}` };
+}
+
+// SlashCommand 등록
+const timeSlotCommand = new SlashCommandBuilder()
+  .setName("현재타임")
+  .setDescription("현재 시간이 A/B/C/D/E 중 어디 타임인지 확인");
+
+// 실행부
+if (interaction.commandName === "현재타임") {
+  const { slot, time } = getCurrentTimeSlot();
+  await interaction.reply(`🕒 현재 한국 시간 **${time}** 은 **${slot}타임** 입니다.`);
+}
+*/
 const CALENDAR_DIR = path.join(__dirname, 'moon_calendars');
 
 
@@ -553,6 +587,7 @@ schedule.scheduleJob({ hour: 20, minute: 58, tz: "Asia/Seoul" }, async () => {
 });
 
 client.login(process.env.TOKEN);
+
 
 
 
