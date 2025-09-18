@@ -20,8 +20,8 @@ const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBit
   GatewayIntentBits.GuildMessageReactions, GatewayIntentBits.GuildMembers] });
 /*
 // 타임 슬롯 정의
-const TIME_SLOTS = ["A", "B", "C", "D", "E"];
-const INTERVAL_MINUTES = 20;
+const TIME_SLOTS = ["아카샤", "공기", "불", "흙", "물"];
+const INTERVAL_MINUTES = 24;
 
 // 현재 시간이 어떤 슬롯인지 계산
 function getCurrentTimeSlot() {
@@ -46,7 +46,7 @@ function getCurrentTimeSlot() {
 // SlashCommand 등록
 const timeSlotCommand = new SlashCommandBuilder()
   .setName("현재타임")
-  .setDescription("현재 시간이 A/B/C/D/E 중 어디 타임인지 확인");
+  .setDescription("현재 시간이 "아카샤/공기/불/흙/물 중 어디 타임인지 확인");
 
 // 실행부
 if (interaction.commandName === "현재타임") {
@@ -587,6 +587,7 @@ schedule.scheduleJob({ hour: 20, minute: 58, tz: "Asia/Seoul" }, async () => {
 });
 
 client.login(process.env.TOKEN);
+
 
 
 
